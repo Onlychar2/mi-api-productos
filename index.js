@@ -1,6 +1,8 @@
+// index.js
 const express = require('express');
 const cors = require('cors');
 const db = require('./db');
+
 const app = express();
 const PORT = process.env.PORT || 3000;
 
@@ -15,7 +17,7 @@ app.get('/productos', (req, res) => {
   });
 });
 
-// Agregar producto
+// Agregar un nuevo producto
 app.post('/productos', (req, res) => {
   const { nombre } = req.body;
   if (!nombre) return res.status(400).json({ error: "Falta el nombre" });
@@ -26,6 +28,7 @@ app.post('/productos', (req, res) => {
   });
 });
 
+// Iniciar servidor
 app.listen(PORT, () => {
   console.log(`Servidor API escuchando en http://localhost:${PORT}`);
 });

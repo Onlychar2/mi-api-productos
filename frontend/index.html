@@ -13,22 +13,22 @@
   <button onclick="agregarProducto()">Agregar</button>
 
   <script>
-    const API_URL = "https://tu-app.onrender.com/productos";
+const API_URL = "https://mi-api-productos.onrender.com/productos";
 
+function cargarProductos() {
+  fetch(API_URL)
+    .then(res => res.json())
+    .then(productos => {
+      const lista = document.getElementById("lista-productos");
+      lista.innerHTML = "";
+      productos.forEach(prod => {
+        const li = document.createElement("li");
+        li.textContent = prod.nombre;
+        lista.appendChild(li);
+      });
+    });
+}
 
-    function cargarProductos() {
-fetch("https://mi-api-productos.onrender.com/productos")
-        .then(res => res.json())
-        .then(productos => {
-          const lista = document.getElementById("lista-productos");
-          lista.innerHTML = "";
-          productos.forEach(prod => {
-            const li = document.createElement("li");
-            li.textContent = prod.nombre;
-            lista.appendChild(li);
-          });
-        });
-    }
 
     function agregarProducto() {
       const nombre = document.getElementById("nombre").value;
