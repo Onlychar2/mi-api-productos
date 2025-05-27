@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <title>Mi Tienda</title>
+</head>
+<body>
+  <h1>🛒 Lista de productos</h1>
+  <ul id="lista-productos"></ul>
+
+  <h2>➕ Agregar producto</h2>
+  <input type="text" id="nombre" placeholder="Nombre del producto">
+  <button onclick="agregarProducto()">Agregar</button>
+
+  <script>
+    const API_URL = "https://tu-app.onrender.com/productos";
+
+
+    function cargarProductos() {
+      fetch(API_URL)
+        .then(res => res.json())
+        .then(productos => {
+          const lista = document.getElementById("lista-productos");
+          lista.innerHTML = "";
+          productos.forEach(prod => {
+            const li = document.createElement("li");
+            li.textContent = prod.nombre;
+            lista.appendChild(li);
+          });
+        });
+    }
+
+    function agregarProducto() {
+      const nombre = document.getElementById("nombre").value;
+      if (!nombre) return alert("Escribe un nombre");
+
+      fetch(API_URL, {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ nombre })
+      })
+      .then(() => {
+        document.getElementById("nombre").value = "";
+        cargarProductos();
+      });
+    }
+
+    cargarProductos();
+  </script>
+</body>
+</html>
