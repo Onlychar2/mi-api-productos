@@ -17,7 +17,7 @@
 
 
     function cargarProductos() {
-      fetch(API_URL)
+fetch("https://mi-api-productos.onrender.com/productos")
         .then(res => res.json())
         .then(productos => {
           const lista = document.getElementById("lista-productos");
